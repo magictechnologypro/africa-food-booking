@@ -137,6 +137,52 @@ footer {
   .search {grid-template-columns:1fr}
   section {padding:35px 6%}
 }
+  
+#formulaire-reservation {
+  max-width: 700px;
+  margin: auto;
+}
+
+#bookingForm {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px #00000012;
+}
+
+#bookingForm label {
+  display: block;
+  font-weight: bold;
+  margin: 16px 0 7px;
+}
+
+#bookingForm input,
+#bookingForm select {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  font-size: 16px;
+  background: white;
+}
+
+#bookingForm button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 16px;
+  background: #123d32;
+  color: white;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+#bookingMessage {
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
 </style>
 </head>
 <body>
@@ -197,6 +243,40 @@ footer {
 
 
 <section id="solidarite">
+  
+<section id="formulaire-reservation">
+  <h2 class="section-title">📅 Réserver une table</h2>
+  <p class="subtitle">Préparez votre prochaine sortie au restaurant.</p>
+
+  <form id="bookingForm">
+    <label>Restaurant</label>
+    <select id="restaurant" required>
+      <option value="">Choisir un restaurant</option>
+      <option>Bella Italia</option>
+      <option>Saveurs d'Algérie</option>
+      <option>Urban Food</option>
+    </select>
+
+    <label>Votre nom</label>
+    <input id="nom" type="text" placeholder="Nom et prénom" required>
+
+    <label>Votre numéro de téléphone</label>
+    <input id="telephone" type="tel" placeholder="Ex : 0550123456" required>
+
+    <label>Date souhaitée</label>
+    <input id="date" type="date" required>
+
+    <label>Heure souhaitée</label>
+    <input id="heure" type="time" required>
+
+    <label>Nombre de personnes</label>
+    <input id="personnes" type="number" min="1" max="30" value="2" required>
+
+    <button type="submit">Envoyer ma demande</button>
+    <p id="bookingMessage" aria-live="polite"></p>
+  </form>
+</section>
+
   <div class="solidarity">
     <h2>❤️ Un repas pour tous</h2>
     <p>
@@ -236,6 +316,33 @@ function reserver(nom) {
   alert("Vous avez choisi " + nom +
     ". Le service de réservation sera bientôt disponible.");
 }
+  
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const restaurant = document.getElementById("restaurant").value;
+  const nom = document.getElementById("nom").value;
+  const telephone = document.getElementById("telephone").value;
+  const date = document.getElementById("date").value;
+  const heure = document.getElementById("heure").value;
+  const personnes = document.getElementById("personnes").value;
+
+  const message =
+    "🍽️ NOUVELLE DEMANDE DE RÉSERVATION\n\n" +
+    "Restaurant : " + restaurant + "\n" +
+    "Nom : " + nom + "\n" +
+    "Téléphone : " + telephone + "\n" +
+    "Date : " + date + "\n" +
+    "Heure : " + heure + "\n" +
+    "Nombre de personnes : " + personnes + "\n\n" +
+    "Demande reçue via Africa Food Booking.";
+
+  const url = "https://wa.me/213553617579?text=" +
+    encodeURIComponent(message);
+
+  window.location.href = url;
+});
+
 </script>
 
 </body>
