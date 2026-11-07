@@ -140,3 +140,103 @@ footer {
 </style>
 </head>
 <body>
+
+<header>
+  <div class="logo">AFRICA <span>FOOD</span> BOOKING</div>
+  <nav>
+    <a href="#restaurants">Restaurants</a>
+    <a href="#reservation">Réservation</a>
+    <a href="#solidarite">Solidarité</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Découvrez les meilleures tables près de chez vous !</h1>
+  <p>Explorez, choisissez et réservez votre restaurant en quelques clics.</p>
+  <div class="search" id="reservation">
+    <input id="wilaya" type="text" placeholder="Votre wilaya">
+    <input id="ville" type="text" placeholder="Votre ville">
+    <button onclick="rechercher()">Rechercher</button>
+  </div>
+  <p id="resultat" aria-live="polite"></p>
+</div>
+
+<section id="restaurants">
+  <h2 class="section-title">Nos restaurants</h2>
+  <p class="subtitle">Une sélection pour découvrir les saveurs de votre région.</p>
+  <div class="restaurants">
+    <article class="restaurant">
+      <div class="food-image">🍕</div>
+      <div class="restaurant-content">
+        <span class="tag">Cuisine italienne</span>
+        <h3>Restaurant Bella Italia</h3>
+        <p>📍 Alger · Pizza et pâtes</p>
+        <button onclick="reserver('Bella Italia')">Découvrir</button>
+      </div>
+    </article>
+    <article class="restaurant">
+      <div class="food-image">🍲</div>
+      <div class="restaurant-content">
+        <span class="tag">Cuisine traditionnelle</span>
+        <h3>Saveurs d'Algérie</h3>
+        <p>📍 Béjaïa · Cuisine locale</p>
+        <button onclick="reserver('Saveurs d’Algérie')">Découvrir</button>
+      </div>
+    </article>
+    <article class="restaurant">
+      <div class="food-image">🍔</div>
+      <div class="restaurant-content">
+        <span class="tag">Fast-food</span>
+        <h3>Urban Food</h3>
+        <p>📍 Oran · Burgers et sandwichs</p>
+        <button onclick="reserver('Urban Food')">Découvrir</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section id="solidarite">
+  <div class="solidarity">
+    <h2>❤️ Un repas pour tous</h2>
+    <p>
+      Offrez un repas à une personne dans le besoin.
+      Ensemble, mobilisons les restaurants partenaires
+      pour transformer un simple repas en un geste de solidarité.
+    </p>
+    <button onclick="alert('Le service de solidarité sera bientôt disponible.')">
+      Participer à la solidarité
+    </button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Africa Food Booking</p>
+  <p>Une initiative Magic Technology</p>
+  <p>Des Professionnels IT au Service de vos Idées.</p>
+</footer>
+
+<script>
+function rechercher() {
+  const wilaya = document.getElementById("wilaya").value.trim();
+  const ville = document.getElementById("ville").value.trim();
+  const resultat = document.getElementById("resultat");
+
+  if (!wilaya && !ville) {
+    resultat.textContent = "Veuillez saisir une wilaya ou une ville.";
+    return;
+  }
+
+  resultat.textContent =
+    "Recherche demandée : " + [ville, wilaya].filter(Boolean).join(", ") +
+    ". Les restaurants seront bientôt disponibles.";
+}
+
+function reserver(nom) {
+  alert("Vous avez choisi " + nom +
+    ". Le service de réservation sera bientôt disponible.");
+}
+</script>
+
+</body>
+</html>
