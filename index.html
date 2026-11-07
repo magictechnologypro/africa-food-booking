@@ -1,72 +1,142 @@
 
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Africa Food Booking</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123d32">
+<title>Africa Food Booking | Réservez votre table</title>
 <style>
-body{margin:0;font-family:Arial;background:#fff9ed;color:#24352b}
-header{background:#123c2b;color:white;padding:24px}
-header span{color:#c9f36b}
-main{padding:22px}
-h1{font-size:30px}
-input,select,button{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:1px solid #ddd;box-sizing:border-box}
-button{background:#123c2b;color:white;font-weight:bold}
-.card{background:white;padding:18px;margin:16px 0;border-radius:16px}
-.solidarity{background:#eaf5d9;padding:20px;border-radius:16px}
-footer{background:#123c2b;color:white;padding:22px}
+:root {
+  --green:#123d32;
+  --lime:#d6f36a;
+  --cream:#fffaf0;
+  --orange:#f28b45;
+  --text:#202b26;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--cream);
+  color:var(--text);
+}
+header {
+  background:var(--green);
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.logo {font-size:21px;font-weight:800}
+.logo span {color:var(--lime)}
+nav a {
+  color:white;
+  text-decoration:none;
+  margin-left:15px;
+  font-size:14px;
+}
+.hero {
+  background:linear-gradient(120deg,#123d32,#276b50);
+  color:white;
+  padding:65px 7% 75px;
+  text-align:center;
+}
+.hero h1 {
+  font-size:clamp(30px,6vw,49px);
+  margin:0 auto 15px;
+  max-width:750px;
+}
+.hero p {
+  font-size:17px;
+  line-height:1.6;
+  color:#e4eee7;
+}
+.search {
+  background:white;
+  color:var(--text);
+  max-width:850px;
+  margin:30px auto 0;
+  padding:17px;
+  border-radius:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:12px;
+  box-shadow:0 8px 25px #0002;
+}
+input,button {
+  font-size:15px;
+  padding:14px;
+  border-radius:9px;
+}
+input {border:1px solid #ddd;width:100%}
+button {
+  border:0;
+  background:var(--green);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover {opacity:.9}
+section {padding:45px 7%}
+.section-title {font-size:27px;margin-bottom:8px}
+.subtitle {color:#68736c;margin-bottom:25px}
+.restaurants {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+.restaurant {
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 5px 18px #0000000c;
+}
+.food-image {
+  height:145px;
+  display:grid;
+  place-items:center;
+  font-size:65px;
+  background:#e9eddf;
+}
+.restaurant-content {padding:18px}
+.restaurant h3 {margin:0 0 9px}
+.restaurant p {color:#68736c;font-size:14px}
+.tag {
+  display:inline-block;
+  background:#edf5df;
+  color:#315d37;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+}
+.restaurant button {width:100%;margin-top:12px}
+.solidarity {
+  background:#f0f5df;
+  border-radius:18px;
+  text-align:center;
+  padding:35px 20px;
+}
+.solidarity h2 {color:var(--green)}
+.solidarity p {line-height:1.7;max-width:650px;margin:12px auto 20px}
+footer {
+  background:var(--green);
+  color:white;
+  text-align:center;
+  padding:25px;
+  font-size:14px;
+}
+@media(max-width:650px) {
+  header {justify-content:center}
+  nav {width:100%;text-align:center}
+  nav a {margin:0 7px}
+  .hero {padding:45px 6%}
+  .search {grid-template-columns:1fr}
+  section {padding:35px 6%}
+}
 </style>
 </head>
 <body>
-<header>
-  <strong>AFRICA <span>FOOD BOOKING</span></strong>
-  <p>Une table, une rencontre, une solidarité.</p>
-</header>
-<main>
-  <h1>Découvrez les meilleures tables !</h1>
-  <p>Réservez votre restaurant en quelques clics.</p>
-
-  <div class="card">
-    <h2>🔎 Trouver un restaurant</h2>
-    <select id="wilaya">
-      <option value="">Choisir une wilaya</option>
-      <option>Alger</option>
-      <option>Béjaïa</option>
-      <option>Oran</option>
-      <option>Constantine</option>
-      <option>Tizi Ouzou</option>
-      <option>Blida</option>
-    </select>
-    <input id="ville" placeholder="Ville ou quartier">
-    <button onclick="chercher()">Rechercher</button>
-    <p id="resultat"></p>
-  </div>
-
-  <div class="card">
-    <h2>🍽️ Nos restaurants</h2>
-    <p>Les restaurants partenaires seront bientôt disponibles.</p>
-  </div>
-
-  <div class="solidarity">
-    <h2>❤️ Un repas pour tous</h2>
-    <p>Offrez un repas à une personne dans le besoin, dans la dignité et la discrétion.</p>
-    <button onclick="alert('Notre service solidaire arrive bientôt !')">Offrir un repas</button>
-  </div>
-</main>
-<footer>
-  Magic Technology — Des professionnels IT au service de vos idées.
-</footer>
-<script>
-function chercher(){
- const w=document.getElementById('wilaya').value;
- const v=document.getElementById('ville').value;
- document.getElementById('resultat').textContent =
- w || v ? 'Recherche de démonstration : '+w+' '+v :
- 'Veuillez choisir une wilaya ou une ville.';
-}
-</script>
-</body>
-</html>
-<!-- Relance publication GitHub Pages -->
