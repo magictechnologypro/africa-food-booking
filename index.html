@@ -241,6 +241,36 @@ footer {
   </div>
 </section>
 
+<section id="gestion-tables">
+  <h2 class="section-title">🍽️ Espace Restaurateur</h2>
+  <p class="subtitle">Gestion des tables et des capacités</p>
+
+  <div class="restaurant-dashboard">
+    <h3>Ajouter une table</h3>
+
+    <label>Nom de la table</label>
+    <input type="text" id="nomTable" placeholder="Ex : T1">
+
+    <label>Nombre de places</label>
+    <select id="capaciteTable">
+      <option value="2">2 places</option>
+      <option value="4">4 places</option>
+      <option value="6">6 places</option>
+      <option value="8">8 places</option>
+      <option value="10">10 places</option>
+    </select>
+
+    <button type="button" onclick="ajouterTable()">
+      Ajouter la table
+    </button>
+
+    <h3>Mes tables</h3>
+    <div id="listeTables">
+      <p>Aucune table enregistrée.</p>
+    </div>
+  </div>
+</section>
+
 
 <section id="solidarite">
   
@@ -342,6 +372,59 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
 
   window.location.href = url;
 });
+
+let tablesRestaurant = JSON.parse(
+  localStorage.getItem("tablesRestaurant") || "[]"
+);
+
+function afficherTables() {
+  const liste = document.getElementById("listeTables");
+
+  if (tablesRestaurant.length === 0) {
+    liste.innerHTML = "<p>Aucune table enregistrée.</p>";
+    return;
+  }
+
+  liste.innerHTML = tablesRestaurant.map((table, index) =>
+    `<div style="padding:12px;margin:8px 0;background:#eef5f1;border-radius:8px;">
+      <strong>${table.nom}</strong> — ${table.capacite} places
+      <button type="button" onclick="supprimerTable(${index})">
+        Supprimer
+      </button>
+    </div>`
+  ).join("");
+}
+
+function ajouterTable() {
+  const nom = document.getElementById("nomTable").value.trim();
+  const capacite = document.getElementById("capaciteTable").value;
+
+  if (!nom) {
+    alert("Veuillez saisir le nom de la table.");
+    return;
+  }
+
+  if (tablesRestaurant.some(t => t.nom.toLowerCase() === nom.toLowerCase())) {
+    alert("Cette table existe déjà.");
+    return;
+  }
+
+  tablesRestaurant.push({ nom, capacite });
+  localStorage.setItem("tablesRestaurant", JSON.stringify(tablesRestaurant));
+
+  document.getElementById("nomTable").value = "";
+  afficherTables();
+}
+
+function supprimerTable(index) {
+  if (!confirm("Supprimer cette table ?")) return;
+
+  tablesRestaurant.splice(index, 1);
+  localStorage.setItem("tablesRestaurant", JSON.stringify(tablesRestaurant));
+  afficherTables();
+}
+
+afficherTables();
 
 </script>
 
